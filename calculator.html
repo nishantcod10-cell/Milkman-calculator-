@@ -1,86 +1,311 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Milkman Moo - Monthly Bill Calculator</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Track daily milk deliveries, newspaper charges, payments and monthly bills.">
+  <title>Milkman Moo - Monthly Bill Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/calculator.css">
 </head>
-<body>
-<header>
-  <div class="hin">
-    <div id="cow" class="cow" aria-hidden="true">🐮</div>
-    <div><h1>Milkman Moo</h1><p id="mood">Log the litres and the bill sorts itself out.</p></div>
-    <nav class="mn">
-      <button id="prev" aria-label="Previous month">◀</button>
-      <strong id="monthLabel"></strong>
-      <button id="next" aria-label="Next month">▶</button>
-      <a class="btnlink" href="index.html">🏠 Home</a>
-      <button id="theme" class="ghost" aria-label="Toggle dark mode">🌙</button>
-    </nav>
-  </div>
-  <div class="bike" aria-hidden="true">🚲🥛</div>
-</header>
+<body class="calculator-page">
 
-<main>
-<section class="card">
-  <div class="legend noprint">
-    <span><i class="dot ok"></i>Delivered</span><span><i class="dot miss"></i>Missed (0 L)</span>
-    <span><i class="dot late"></i>Late 🐌</span><span><i class="dot"></i>Not logged yet</span><span>☀️ Sunday</span>
-  </div>
-  <div id="cal" class="cal"></div>
-  <div class="btns noprint">
-    <label class="inl">Default L<input id="defL" type="number" min="0" step="0.5" value="1"></label>
-    <button id="fill">Fill empty days up to today</button>
-    <button id="sundays">Sundays off</button>
-    <button id="reset" class="ghost">Reset month</button>
-  </div>
-</section>
+  <header class="app-header noprint">
+    <div class="app-header-inner">
+      <a class="app-brand" href="index.html" aria-label="Milkman Moo home">
+        <span class="app-brand-icon">🐮</span>
+        <span>
+          <strong>Milkman Moo</strong>
+          <small id="moodText">Your month at a glance</small>
+        </span>
+      </a>
 
-<aside>
-  <section class="card settings noprint">
-    <h2>Setup</h2>
-    <label class="wide">Vendor name<input id="vendor" placeholder="e.g. Ramesh Dairy"></label>
-    <label>Rate / litre (₹)<input id="rate" type="number" min="0" step="0.5" value="56"></label>
-    <label>Advance paid (₹)<input id="advance" type="number" min="0" placeholder="0"></label>
-    <label>New rate (₹)<input id="newRate" type="number" min="0" step="0.5" placeholder="if it changed"></label>
-    <label>New rate from day<input id="newFrom" type="number" min="1" max="31" placeholder="e.g. 15"></label>
-    <div class="paper wide">
-      <label class="chk"><input id="paperOn" type="checkbox"> 📰 Add newspaper</label>
-      <label>Per day (₹)<input id="paperRate" type="number" min="0" step="0.5" value="5"></label>
-      <label>Sunday (₹)<input id="sunRate" type="number" min="0" step="0.5" placeholder="same as normal"></label>
-    </div>
-  </section>
+      <div class="month-switcher" aria-label="Month navigation">
+        <button id="prevMonth" class="icon-btn" type="button" title="Previous month">‹</button>
+        <div class="month-title-wrap">
+          <strong id="monthLabel">October 2026</strong>
+          <span id="saveStatus" class="save-status">✓ Saved</span>
+        </div>
+        <button id="nextMonth" class="icon-btn" type="button" title="Next month">›</button>
+        <button id="todayBtn" class="soft-btn" type="button">Today</button>
+      </div>
 
-  <section class="card bill">
-    <div class="glass" aria-hidden="true"><div id="milk"></div></div>
-    <div class="receipt">
-      <h2 id="billTitle">Bill</h2>
-      <dl class="stats">
-        <dt>Total litres</dt><dd id="tLitres">0</dd>
-        <dt>Delivered days</dt><dd id="tDel">0</dd>
-        <dt>Days missed</dt><dd id="tMiss">0</dd>
-        <dt>Days late</dt><dd id="tLate">0</dd>
-        <dt>Not logged</dt><dd id="tPend">0</dd>
-        <dt>Avg per delivery</dt><dd id="tAvg">0 L</dd>
-      </dl>
-      <dl id="lines" class="lines"></dl>
-      <dl>
-        <dt class="big">Total bill</dt><dd class="big" id="tTotal">₹0</dd>
-        <dt>Advance paid</dt><dd id="tAdv">₹0</dd>
-        <dt class="big">Balance due</dt><dd class="big" id="tDue">₹0</dd>
-      </dl>
+      <nav class="header-actions" aria-label="Calculator actions">
+        <button id="settingsBtn" class="soft-btn" type="button" title="Open settings">⚙ Settings</button>
+        <button id="themeBtn" class="icon-btn" type="button" title="Toggle dark mode">🌙</button>
+        <a class="soft-link" href="index.html">🏠 Home</a>
+      </nav>
     </div>
-    <div class="btns noprint wide">
-      <button id="print">Print</button>
-      <button id="copy">Copy for WhatsApp</button>
-      <button id="csv" class="ghost">Download CSV</button>
-      <p id="toast"></p>
+  </header>
+
+  <main class="app-shell">
+
+    <section class="overview-section" aria-labelledby="overviewTitle">
+      <div class="section-heading-row">
+        <div>
+          <span class="eyebrow">MONTH OVERVIEW</span>
+          <h1 id="overviewTitle">Track. Check. Pay with confidence.</h1>
+        </div>
+        <p id="overviewHint">Select any day to add or edit a delivery.</p>
+      </div>
+
+      <div class="summary-grid">
+        <article class="summary-card summary-milk">
+          <span class="summary-icon">🥛</span>
+          <div>
+            <strong id="summaryLitres">0 L</strong>
+            <span>Total milk</span>
+          </div>
+          <small id="summaryAvg">0 L average</small>
+        </article>
+
+        <article class="summary-card summary-delivered">
+          <span class="summary-icon">✓</span>
+          <div>
+            <strong id="summaryDelivered">0</strong>
+            <span>Delivered</span>
+          </div>
+          <small id="summaryLate">0 late</small>
+        </article>
+
+        <article class="summary-card summary-missed">
+          <span class="summary-icon">×</span>
+          <div>
+            <strong id="summaryMissed">0</strong>
+            <span>Missed days</span>
+          </div>
+          <small id="summaryPending">0 not logged</small>
+        </article>
+
+        <article class="summary-card summary-balance">
+          <span class="summary-icon">₹</span>
+          <div>
+            <strong id="summaryBalance">₹0</strong>
+            <span id="summaryBalanceLabel">Balance due</span>
+          </div>
+          <small id="summaryPayments">₹0 paid</small>
+        </article>
+      </div>
+    </section>
+
+    <section class="workspace-grid">
+      <section class="panel calendar-panel">
+        <div class="panel-head">
+          <div>
+            <span class="eyebrow">DAILY RECORD</span>
+            <h2>Calendar</h2>
+          </div>
+          <div class="legend" aria-label="Calendar legend">
+            <span><i class="legend-dot delivered"></i>Delivered</span>
+            <span><i class="legend-dot missed"></i>Missed</span>
+            <span><i class="legend-dot late"></i>Late</span>
+            <span><i class="legend-dot pending"></i>Pending</span>
+          </div>
+        </div>
+
+        <div id="calendar" class="calendar" aria-live="polite"></div>
+
+        <div class="calendar-actions noprint">
+          <button id="fillToTodayBtn" class="primary-btn" type="button">Fill empty days up to today</button>
+          <button id="sundaysOffBtn" class="soft-btn" type="button">Mark Sundays off</button>
+        </div>
+      </section>
+
+      <aside class="panel day-editor noprint" aria-labelledby="selectedDateLabel">
+        <div class="day-editor-head">
+          <div>
+            <span class="eyebrow">SELECTED DAY</span>
+            <h2 id="selectedDateLabel">Today</h2>
+          </div>
+          <span id="selectedStatus" class="status-chip pending">Not logged</span>
+        </div>
+
+        <div class="editor-block">
+          <label for="qtyInput">Milk quantity</label>
+          <div class="quantity-control">
+            <button id="qtyMinus" class="qty-btn" type="button" aria-label="Decrease milk">−</button>
+            <div class="quantity-input-wrap">
+              <input id="qtyInput" type="number" min="0" step="0.5" inputmode="decimal" placeholder="—">
+              <span>L</span>
+            </div>
+            <button id="qtyPlus" class="qty-btn" type="button" aria-label="Increase milk">+</button>
+          </div>
+          <div class="editor-shortcuts">
+            <button id="missedBtn" class="soft-btn" type="button">Mark missed (0 L)</button>
+            <button id="clearDayBtn" class="text-btn danger-text" type="button">Clear day</button>
+          </div>
+        </div>
+
+        <div class="editor-block toggle-list">
+          <label class="toggle-row">
+            <span>
+              <strong>🐌 Late delivery</strong>
+              <small>Only available when milk was delivered.</small>
+            </span>
+            <input id="lateToggle" type="checkbox">
+          </label>
+
+          <label class="toggle-row">
+            <span>
+              <strong>📰 Newspaper delivered</strong>
+              <small id="paperToggleHelp">Enable newspaper in Settings if needed.</small>
+            </span>
+            <input id="paperToggle" type="checkbox">
+          </label>
+        </div>
+
+        <div class="editor-block">
+          <label for="noteInput">Daily note</label>
+          <textarea id="noteInput" rows="4" maxlength="180" placeholder="e.g. Delivered at 9:45 AM"></textarea>
+          <div class="note-meta"><span id="rateForSelectedDay">Rate: ₹0/L</span><span id="noteCount">0/180</span></div>
+        </div>
+
+        <button id="saveDayBtn" class="primary-btn full-btn" type="button">✓ Save entry</button>
+      </aside>
+    </section>
+
+    <section class="panel bill-panel" aria-labelledby="billTitle">
+      <div class="bill-top">
+        <div>
+          <span class="eyebrow">MONTHLY BILL</span>
+          <h2 id="billTitle">Monthly bill</h2>
+          <p id="billSubtitle">Clear breakdown of milk, newspaper and payments.</p>
+        </div>
+
+        <div id="progressRing" class="progress-ring" style="--p:0%" aria-label="Month logging progress">
+          <div>
+            <strong id="progressPct">0%</strong>
+            <span>logged</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bill-stats">
+        <div><span>Total litres</span><strong id="billLitres">0 L</strong></div>
+        <div><span>Delivered</span><strong id="billDelivered">0 days</strong></div>
+        <div><span>Late</span><strong id="billLate">0 days</strong></div>
+        <div><span>Pending</span><strong id="billPending">0 days</strong></div>
+      </div>
+
+      <div id="billLines" class="bill-lines"></div>
+
+      <div class="bill-totals">
+        <div><span>Total bill</span><strong id="billTotal">₹0</strong></div>
+        <div><span>Payments</span><strong id="billPayments">− ₹0</strong></div>
+        <div class="balance-row"><span id="balanceLabel">Balance due</span><strong id="billBalance">₹0</strong></div>
+      </div>
+
+      <div class="bill-actions noprint">
+        <button id="whatsappBtn" class="primary-btn" type="button">💬 Share on WhatsApp</button>
+        <button id="printBtn" class="soft-btn" type="button">🖨 Print / Save PDF</button>
+        <button id="csvBtn" class="soft-btn" type="button">↓ Download CSV</button>
+      </div>
+    </section>
+  </main>
+
+  <div id="drawerBackdrop" class="drawer-backdrop noprint" hidden></div>
+
+  <aside id="settingsDrawer" class="settings-drawer noprint" aria-hidden="true" aria-labelledby="settingsTitle">
+    <div class="drawer-head">
+      <div>
+        <span class="eyebrow">MONTH SETTINGS</span>
+        <h2 id="settingsTitle">Setup & history</h2>
+      </div>
+      <button id="closeSettingsBtn" class="icon-btn" type="button" aria-label="Close settings">×</button>
     </div>
-  </section>
-</aside>
-</main>
-<script src="js/app.js"></script>
+
+    <div class="drawer-scroll">
+      <section class="settings-section">
+        <h3>Basic setup</h3>
+        <label>Vendor name
+          <input id="vendorInput" type="text" maxlength="60" placeholder="e.g. Ramesh Dairy">
+        </label>
+
+        <div class="two-col">
+          <label>Base milk rate (₹/L)
+            <input id="baseRateInput" type="number" min="0" step="0.5">
+          </label>
+          <label>Default litres
+            <input id="defaultLInput" type="number" min="0" step="0.5">
+          </label>
+        </div>
+      </section>
+
+      <section class="settings-section">
+        <div class="settings-title-row">
+          <div>
+            <h3>Newspaper</h3>
+            <p>Charge only on days you mark as delivered.</p>
+          </div>
+          <label class="switch"><input id="paperOnInput" type="checkbox"><span></span></label>
+        </div>
+
+        <div class="two-col">
+          <label>Normal day (₹)
+            <input id="paperRateInput" type="number" min="0" step="0.5">
+          </label>
+          <label>Sunday (₹)
+            <input id="sunRateInput" type="number" min="0" step="0.5" placeholder="Same as normal">
+          </label>
+        </div>
+      </section>
+
+      <section class="settings-section">
+        <div class="settings-title-row">
+          <div>
+            <h3>Rate history</h3>
+            <p>Old days keep the correct rate.</p>
+          </div>
+        </div>
+
+        <div id="rateHistoryList" class="history-list"></div>
+
+        <div class="history-add-grid">
+          <label>From day
+            <input id="newRateDayInput" type="number" min="2" max="31" placeholder="15">
+          </label>
+          <label>New rate (₹/L)
+            <input id="newRateValueInput" type="number" min="0" step="0.5" placeholder="58">
+          </label>
+          <button id="addRateBtn" class="soft-btn" type="button">+ Add rate change</button>
+        </div>
+      </section>
+
+      <section class="settings-section">
+        <div class="settings-title-row">
+          <div>
+            <h3>Payments</h3>
+            <p>Record every advance or payment with a date.</p>
+          </div>
+        </div>
+
+        <div id="paymentHistoryList" class="history-list"></div>
+
+        <div class="payment-add-grid">
+          <label>Amount (₹)
+            <input id="paymentAmountInput" type="number" min="0" step="0.5" placeholder="500">
+          </label>
+          <label>Date
+            <input id="paymentDateInput" type="date">
+          </label>
+          <label class="wide-field">Note
+            <input id="paymentNoteInput" type="text" maxlength="80" placeholder="e.g. Cash payment">
+          </label>
+          <button id="addPaymentBtn" class="soft-btn wide-field" type="button">+ Add payment</button>
+        </div>
+      </section>
+
+      <section class="settings-section danger-zone">
+        <h3>Danger zone</h3>
+        <p>Clear only the daily entries for this month. Rates and payments stay unchanged.</p>
+        <button id="resetMonthBtn" class="danger-btn" type="button">Reset daily entries</button>
+      </section>
+    </div>
+  </aside>
+
+  <div id="toast" class="toast noprint" role="status" aria-live="polite"></div>
+
+  <script src="js/app.js"></script>
 </body>
 </html>
