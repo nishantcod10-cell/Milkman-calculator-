@@ -1,67 +1,820 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Milkman Moo - No more milk bill arguments</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/home.css">
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <meta
+        name="description"
+        content="Milkman Moo helps you track daily milk, newspapers, late deliveries and monthly bills."
+    >
+
+    <title>Milkman Moo - No More Milk Bill Arguments</title>
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Homepage CSS -->
+    <link rel="stylesheet" href="css/home.css">
 </head>
+
+
 <body class="home">
-<nav class="top">
-  <strong>🐮 Milkman Moo</strong>
-  <a class="btnlink" href="calculator.html">Open calculator</a>
-</nav>
 
-<section class="hero">
-  <div class="copy">
-    <h1>No more arguing about the milk bill.</h1>
-    <p>Log every litre, late delivery and newspaper day. Get an itemised bill that both you and the milkman can trust.</p>
-    <form id="go" class="card start">
-      <label>Your milkman's name
-        <input id="v" placeholder="e.g. Ramesh Dairy" autocomplete="off">
-      </label>
-      <button type="submit">Start this month's bill</button>
-    </form>
-  </div>
-  <div class="art" aria-hidden="true">
-    <div class="bigcow">🐮</div>
-    <div class="bubble">Moo! Bill ready?</div>
-    <div class="shelf">🥛 🥛 📰 🥛</div>
-  </div>
-</section>
+    <!-- ========================================= -->
+    <!-- NAVBAR -->
+    <!-- ========================================= -->
 
-<section class="feats">
-  <article class="card"><h3>📅 Month at a glance</h3><p>Every day of the month as a card. Tap + or − for litres, 0 for a missed day.</p></article>
-  <article class="card"><h3>💰 Rate changes</h3><p>Rate went up on the 15th? Old days keep the old rate and the bill shows both.</p></article>
-  <article class="card"><h3>📰 Newspaper and Sundays</h3><p>Add a per-day newspaper charge with its own Sunday rate.</p></article>
-  <article class="card"><h3>🐌 Late-day proof</h3><p>Mark late deliveries and see the count right in the bill.</p></article>
-</section>
+    <nav class="top">
 
-<section class="steps">
-  <h2>How it works</h2>
-  <ol>
-    <li><b>Set up.</b> Enter the vendor, rate and optional newspaper charge.</li>
-    <li><b>Log daily.</b> Add litres each morning and mark late days.</li>
-    <li><b>Share the bill.</b> Print it or copy it for WhatsApp at month end.</li>
-  </ol>
-  <a class="btnlink big" href="calculator.html">Open calculator</a>
-</section>
+        <a href="index.html" class="brand">
+            <span class="brand-icon">🐮</span>
+            <span>Milkman Moo</span>
+        </a>
 
-<footer>Made by Team Syntax Error</footer>
+        <a
+            class="btnlink navbar-button"
+            href="calculator.html"
+        >
+            Open Calculator →
+        </a>
 
-<script>
-const K = 'milkman-moo';
-const read = () => { try { return JSON.parse(localStorage.getItem(K) || '{}'); } catch (e) { return {}; } };
-const s = read();
-if (s.theme) document.documentElement.dataset.theme = s.theme;
-if (s.vendor) document.getElementById('v').value = s.vendor;
-document.getElementById('go').addEventListener('submit', e => {
-  e.preventDefault();
-  try { const d = read(); d.vendor = document.getElementById('v').value.trim(); localStorage.setItem(K, JSON.stringify(d)); } catch (x) {}
-  location.href = 'calculator.html';
-});
-</script>
+    </nav>
+
+
+
+    <!-- ========================================= -->
+    <!-- HERO SECTION WITH BACKGROUND VIDEO -->
+    <!-- ========================================= -->
+
+    <section class="hero">
+
+
+        <!-- BACKGROUND VIDEO -->
+
+       <video
+    class="hero-video"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+>
+
+    <source
+        src="assets/videos/milkman-bg.mp4"
+        type="video/mp4"
+    >
+
+</video>
+
+
+        <!-- DARK OVERLAY -->
+
+        <div class="hero-overlay"></div>
+
+
+
+        <!-- OPTIONAL DECORATION -->
+
+        <div class="hero-glow hero-glow-one"></div>
+
+        <div class="hero-glow hero-glow-two"></div>
+
+
+
+        <!-- HERO CONTENT -->
+
+        <div class="hero-inner">
+
+            <div class="copy hero-content">
+
+
+                <!-- Small badge -->
+
+                <div class="hero-badge">
+
+                    <span>🥛</span>
+
+                    <span>Simple • Accurate • Daily</span>
+
+                </div>
+
+
+
+                <!-- Heading -->
+
+                <h1>
+
+                    No more arguing
+                    about the
+
+                    <span class="highlight">
+                        milk bill.
+                    </span>
+
+                </h1>
+
+
+
+                <!-- Description -->
+
+                <p class="hero-description">
+
+                    Log every litre, missed delivery,
+                    newspaper and late arrival.
+
+                    Get a clear monthly bill that both
+                    you and your milkman can understand.
+
+                </p>
+
+
+
+                <!-- START FORM -->
+
+                <form
+                    id="go"
+                    class="card start"
+                >
+
+
+                    <div class="form-heading">
+
+                        <span class="form-icon">
+                            🥛
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Start tracking
+                            </strong>
+
+                            <small>
+                                Create this month's milk record
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <label for="v">
+
+                        Your milkman's name
+
+                        <input
+                            id="v"
+                            type="text"
+                            placeholder="e.g. Ramesh Dairy"
+                            autocomplete="off"
+                            maxlength="60"
+                        >
+
+                    </label>
+
+
+
+                    <button
+                        type="submit"
+                        class="start-button"
+                    >
+
+                        Start this month's bill
+
+                        <span>
+                            →
+                        </span>
+
+                    </button>
+
+
+                    <p class="privacy-note">
+
+                        🔒 Your records are stored
+                        in your browser.
+
+                    </p>
+
+
+                </form>
+
+
+
+                <!-- Trust points -->
+
+                <div class="hero-points">
+
+                    <span>
+                        ✓ Daily records
+                    </span>
+
+                    <span>
+                        ✓ Automatic bill
+                    </span>
+
+                    <span>
+                        ✓ Easy sharing
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Scroll indicator -->
+
+        <a
+            href="#features"
+            class="scroll-down"
+            aria-label="Scroll to features"
+        >
+
+            <span>
+                Explore
+            </span>
+
+            <div class="scroll-arrow">
+                ↓
+            </div>
+
+        </a>
+
+
+    </section>
+
+
+
+    <!-- ========================================= -->
+    <!-- FEATURES SECTION -->
+    <!-- ========================================= -->
+
+    <section
+        class="features-section"
+        id="features"
+    >
+
+
+        <div class="section-heading">
+
+            <span class="section-tag">
+                EVERYTHING IN ONE PLACE
+            </span>
+
+            <h2>
+                Your daily milk record,
+                made simple.
+            </h2>
+
+            <p>
+                Stop remembering everything in your head.
+                Record deliveries every day and let
+                Milkman Moo calculate the month for you.
+            </p>
+
+        </div>
+
+
+
+        <div class="feats">
+
+
+            <!-- Feature 1 -->
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    📅
+                </div>
+
+                <h3>
+                    Month at a glance
+                </h3>
+
+                <p>
+                    View every day of the month and quickly
+                    see delivered, missed and pending days.
+                </p>
+
+            </article>
+
+
+
+            <!-- Feature 2 -->
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    💰
+                </div>
+
+                <h3>
+                    Rate changes
+                </h3>
+
+                <p>
+                    Change milk rates during the month
+                    and automatically calculate your bill.
+                </p>
+
+            </article>
+
+
+
+            <!-- Feature 3 -->
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    📰
+                </div>
+
+                <h3>
+                    Newspaper tracking
+                </h3>
+
+                <p>
+                    Add newspaper charges and even
+                    maintain a separate Sunday rate.
+                </p>
+
+            </article>
+
+
+
+            <!-- Feature 4 -->
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    🐌
+                </div>
+
+                <h3>
+                    Late-day proof
+                </h3>
+
+                <p>
+                    Mark late deliveries so you have
+                    a clear record at the end of the month.
+                </p>
+
+            </article>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ========================================= -->
+    <!-- HOW IT WORKS SECTION -->
+    <!-- ========================================= -->
+
+    <section class="how-section">
+
+
+        <div class="section-heading">
+
+            <span class="section-tag">
+                HOW IT WORKS
+            </span>
+
+            <h2>
+                Three simple steps.
+            </h2>
+
+            <p>
+                Start in seconds.
+                No complicated setup required.
+            </p>
+
+        </div>
+
+
+
+        <div class="steps-grid">
+
+
+            <!-- Step 1 -->
+
+            <div class="step-card">
+
+                <div class="step-number">
+                    01
+                </div>
+
+                <div class="step-icon">
+                    ⚙️
+                </div>
+
+                <h3>
+                    Set up
+                </h3>
+
+                <p>
+                    Enter your milkman's name,
+                    milk rate and optional
+                    newspaper charges.
+                </p>
+
+            </div>
+
+
+
+            <!-- Step 2 -->
+
+            <div class="step-arrow">
+                →
+            </div>
+
+
+
+            <!-- Step 2 -->
+
+            <div class="step-card">
+
+                <div class="step-number">
+                    02
+                </div>
+
+                <div class="step-icon">
+                    🥛
+                </div>
+
+                <h3>
+                    Log daily
+                </h3>
+
+                <p>
+                    Record how much milk was delivered
+                    and mark missed or late deliveries.
+                </p>
+
+            </div>
+
+
+
+            <!-- Arrow -->
+
+            <div class="step-arrow">
+                →
+            </div>
+
+
+
+            <!-- Step 3 -->
+
+            <div class="step-card">
+
+                <div class="step-number">
+                    03
+                </div>
+
+                <div class="step-icon">
+                    🧾
+                </div>
+
+                <h3>
+                    Get your bill
+                </h3>
+
+                <p>
+                    Let the calculator total everything
+                    and create a clear monthly bill.
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="how-button-wrap">
+
+            <a
+                class="main-cta"
+                href="calculator.html"
+            >
+
+                Open Milk Calculator
+
+                <span>
+                    →
+                </span>
+
+            </a>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ========================================= -->
+    <!-- FINAL CALL TO ACTION -->
+    <!-- ========================================= -->
+
+    <section class="bottom-cta">
+
+
+        <div class="bottom-cta-inner">
+
+
+            <div>
+
+                <span class="section-tag light-tag">
+                    READY TO START?
+                </span>
+
+                <h2>
+                    Make this month's
+                    milk bill easier.
+                </h2>
+
+                <p>
+                    One small daily record can prevent
+                    a big argument at the end of the month.
+                </p>
+
+            </div>
+
+
+
+            <a
+                href="calculator.html"
+                class="bottom-button"
+            >
+
+                Start Tracking
+
+                <span>
+                    →
+                </span>
+
+            </a>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ========================================= -->
+    <!-- FOOTER -->
+    <!-- ========================================= -->
+
+    <footer class="home-footer">
+
+
+        <div class="footer-inner">
+
+
+            <div class="footer-brand">
+
+                <strong>
+                    🐮 Milkman Moo
+                </strong>
+
+                <p>
+                    Simple daily milk tracking.
+                </p>
+
+            </div>
+
+
+
+            <div class="footer-credit">
+
+                Made by
+                <strong>
+                    Team Syntax Error
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+    </footer>
+
+
+
+    <!-- ========================================= -->
+    <!-- JAVASCRIPT -->
+    <!-- ========================================= -->
+
+    <script>
+
+        /*
+        ==============================================
+        LOCAL STORAGE
+        ==============================================
+        */
+
+        const K = 'milkman-moo';
+
+
+        function readData() {
+
+            try {
+
+                return JSON.parse(
+                    localStorage.getItem(K) || '{}'
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    'Unable to read saved data:',
+                    error
+                );
+
+                return {};
+
+            }
+
+        }
+
+
+
+        /*
+        ==============================================
+        LOAD EXISTING SETTINGS
+        ==============================================
+        */
+
+        const savedData = readData();
+
+
+        if (savedData.theme) {
+
+            document.documentElement.dataset.theme =
+                savedData.theme;
+
+        }
+
+
+        if (savedData.vendor) {
+
+            document.getElementById('v').value =
+                savedData.vendor;
+
+        }
+
+
+
+        /*
+        ==============================================
+        START BUTTON
+        ==============================================
+        */
+
+        document
+            .getElementById('go')
+            .addEventListener(
+                'submit',
+                function (event) {
+
+                    event.preventDefault();
+
+
+                    const vendorInput =
+                        document.getElementById('v');
+
+
+                    const vendorName =
+                        vendorInput.value.trim();
+
+
+                    /*
+                    If no name is entered,
+                    highlight the input.
+                    */
+
+                    if (!vendorName) {
+
+                        vendorInput.focus();
+
+                        vendorInput.classList.add(
+                            'input-error'
+                        );
+
+
+                        setTimeout(
+                            function () {
+
+                                vendorInput.classList.remove(
+                                    'input-error'
+                                );
+
+                            },
+                            1400
+                        );
+
+
+                        return;
+
+                    }
+
+
+
+                    /*
+                    Save vendor name.
+                    */
+
+                    try {
+
+                        const data = readData();
+
+                        data.vendor = vendorName;
+
+                        localStorage.setItem(
+                            K,
+                            JSON.stringify(data)
+                        );
+
+                    }
+
+                    catch (error) {
+
+                        console.error(
+                            'Unable to save vendor:',
+                            error
+                        );
+
+                    }
+
+
+
+                    /*
+                    Open calculator page.
+                    */
+
+                    window.location.href =
+                        'calculator.html';
+
+                }
+            );
+
+
+
+        /*
+        ==============================================
+        VIDEO FALLBACK
+        ==============================================
+        */
+
+        const backgroundVideo =
+            document.querySelector('.hero-video');
+
+
+        if (backgroundVideo) {
+
+            backgroundVideo.addEventListener(
+                'error',
+                function () {
+
+                    document
+                        .querySelector('.hero')
+                        .classList.add(
+                            'video-failed'
+                        );
+
+                }
+            );
+
+        }
+
+    </script>
+
+
 </body>
+
 </html>
