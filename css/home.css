@@ -1,0 +1,22 @@
+.home{background:var(--page)}
+.top{max-width:1100px;margin:0 auto;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;font-size:1.2rem}
+.hero{background:var(--sky);border-bottom:6px solid var(--grass);padding:30px 20px 50px}
+.hero>div{max-width:520px}
+.hero{display:grid;grid-template-columns:1fr;gap:28px;justify-content:center}
+.copy h1{font-size:2.6rem;line-height:1.1;margin:0 0 12px}
+.copy p{font-size:1.1rem;margin:0 0 20px}
+.start{display:grid;gap:12px}
+.art{position:relative;text-align:center;justify-self:center;min-width:240px}
+.bigcow{font-size:8rem;animation:wob 2.6s ease-in-out infinite}
+.bubble{display:inline-block;background:var(--card);border:3px solid var(--ink);border-radius:18px;padding:6px 14px;font-weight:600;box-shadow:3px 3px 0 var(--ink)}
+.shelf{font-size:2rem;margin-top:12px;letter-spacing:6px}
+.feats{max-width:1100px;margin:36px auto;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.feats h3{margin:0 0 6px}.feats p{margin:0}
+.steps{max-width:700px;margin:0 auto 40px;padding:0 20px}
+.steps ol{padding-left:22px;display:grid;gap:10px;font-size:1.05rem}
+.btnlink.big{display:inline-block;font-size:1.1rem;background:var(--sun);color:#2b2d42;padding:10px 20px}
+footer{text-align:center;padding:20px;border-top:3px dashed var(--ink)}
+@media(min-width:860px){
+  .hero{grid-template-columns:minmax(0,540px) minmax(0,300px);padding:50px 20px 60px}
+  .copy h1{font-size:3.2rem}
+}
